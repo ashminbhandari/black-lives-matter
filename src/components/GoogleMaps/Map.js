@@ -1,15 +1,19 @@
 import React, { useEffect, useRef } from 'react'
-import mapStyles from "./mapStyles";
 
-export default function Map({ options, onMount, className }) {
+export default function Map({ options, onMount, className, mapStyle }) {
     const props = { ref: useRef(), className }
     const onLoad = () => {
-        const map = new window.google.maps.Map(props.ref.current, options)
+        const map = new window.google.maps.Map(props.ref.current, {
+            center: { lat: 48, lng: 8 },
+            zoom: 5,
+            styles: mapStyle
+        })
         onMount && onMount(map)
     }
 
     useEffect(() => {
         if (!window.google) {
+            console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
             const script = document.createElement(`script`)
             script.type = `text/javascript`
             script.src =
@@ -30,14 +34,4 @@ export default function Map({ options, onMount, className }) {
                 = {{height: `100vh`, }}
         />
     )
-}
-
-Map.defaultProps = {
-    options: {
-        center: { lat: 48, lng: 8 },
-        zoom: 5,
-        styles: mapStyles
-    },
-
-
 }
