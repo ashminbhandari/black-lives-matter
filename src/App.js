@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import GoogleMaps from "./components/GoogleMaps/Map";
-import BnWMapStyle from "./components/GoogleMaps/BnWMapStyle";
+import MapPage from "./pages/MapPage";
 
 function App() {
   return (
     <div className="App">
-      <GoogleMaps mapStyle={BnWMapStyle}/>
+      <MapPage/>
     </div>
   );
 }

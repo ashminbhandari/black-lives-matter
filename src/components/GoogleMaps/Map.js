@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-export default function Map({ options, onMount, className, mapStyle }) {
+export default function Map({ uniqueID, onMount, className, mapStyle }) {
     const props = { ref: useRef(), className }
     const onLoad = () => {
         const map = new window.google.maps.Map(props.ref.current, {
@@ -13,7 +13,6 @@ export default function Map({ options, onMount, className, mapStyle }) {
 
     useEffect(() => {
         if (!window.google) {
-            console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
             const script = document.createElement(`script`)
             script.type = `text/javascript`
             script.src =
@@ -29,6 +28,7 @@ export default function Map({ options, onMount, className, mapStyle }) {
     return (
         <
             div
+            id={uniqueID}
             {...props}
             style
                 = {{height: `100vh`, }}
