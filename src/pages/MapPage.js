@@ -9,9 +9,6 @@ const MapPage = () => {
             <div id={'blackMap'}>
                 <Map uniqueID={'blackMap'} mapStyle={BnWMapStyle}/>
             </div>
-            <div id={'whiteMap'}>
-                <Map uniqueID={'whiteMap'} mapStyle={BnWMapStyle}/>
-            </div>
         </div>
     )
 }
