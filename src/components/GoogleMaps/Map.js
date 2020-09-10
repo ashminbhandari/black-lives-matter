@@ -1,17 +1,12 @@
-import React, { useEffect, useRef } from 'react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-
-const containerStyle = {
-    width: '400px',
-    height: '400px'
-};
+import React from 'react'
+import {GoogleMap, LoadScript} from '@react-google-maps/api';
 
 const center = {
-    lat: -3.745,
-    lng: -38.523
+    latitude: -3.745,
+    longitude: -38.523
 };
 
-const Map = ({API_KEY}) => {
+const Map = ({API_KEY, containerStyle, mapStyle}) => {
     const [map, setMap] = React.useState(null);
 
     const onLoad = React.useCallback(function callback(map) {
@@ -30,12 +25,16 @@ const Map = ({API_KEY}) => {
         >
             <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
+                options={{
+                    styles: mapStyle,
+                    zoom: 100,
+                    center: {lat: -3, lon: 40}
+                }}
+                zoom={10}
             >
-                { /* Child components, such as markers, info windows, etc. */ }
+                { /* Child components, such as markers, info windows, etc. */}
                 <></>
             </GoogleMap>
         </LoadScript>

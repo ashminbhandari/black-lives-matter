@@ -1,7 +1,16 @@
+#mapPageContainer {
+    display: flex;
+    flex-direction: row;
+    border: 2px dotted red;
+}
 #blackMap {
-    width: 50%;
+    width: 50vw;
+    height: 100vh;
+    border: 2px dotted red;
 }
 
 #whiteMap {
-    width: 50%
+    width: 50vw;
+    height: 100vh;
+    border: 2px dotted red;
 }
