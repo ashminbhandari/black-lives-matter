@@ -1,44 +1,32 @@
-import React from 'react'
-import {GoogleMap, LoadScript} from '@react-google-maps/api';
+import React, {Component} from 'react';
+import GoogleMapReact from 'google-map-react';
 
-const center = {
-    latitude: -3.745,
-    longitude: -38.523
-};
+class Map extends Component {
+    static defaultProps = {
+        center: {
+            lat: 37,
+            lng: -101
+        },
+        zoom: 2
+    };
 
-const Map = ({API_KEY, containerStyle, mapStyle}) => {
-    const [map, setMap] = React.useState(null);
-
-    const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds();
-        map.fitBounds(bounds);
-        setMap(map);
-    }, []);
-
-    const onUnmount = React.useCallback(function callback(map) {
-        setMap(null);
-    }, []);
-
-    return (
-        <LoadScript
-            googleMapsApiKey={API_KEY}
-        >
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                options={{
-                    styles: mapStyle,
-                    zoom: 100,
-                    center: {lat: -3, lon: 40}
-                }}
-                zoom={10}
-            >
-                { /* Child components, such as markers, info windows, etc. */}
-                <></>
-            </GoogleMap>
-        </LoadScript>
-    )
+    render() {
+        return (
+            <div style={{height: '100vh', width: '50vw'}}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{key: this.props.API_KEY}}
+                    defaultCenter={this.props.center}
+                    defaultZoom={this.props.zoom}
+                    options={{
+                        styles: this.props.mapStyle,
+                        disableDefaultUI:true,
+                        zoomControl: true
+                    }}
+                >
+                </GoogleMapReact>
+            </div>
+        );
+    }
 }
 
-export default React.memo(Map)
+export default Map;
