@@ -1,37 +1,45 @@
 import React, { useEffect, useRef } from 'react'
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
-export default function Map({ uniqueID, onMount, className, mapStyle }) {
-    const props = { ref: useRef(), className }
-    const onLoad = () => {
-        const map = new window.google.maps.Map(props.ref.current, {
-            center: { lat: 48, lng: 8 },
-            zoom: 5,
-            styles: mapStyle
-        })
-        onMount && onMount(map)
-    }
+const containerStyle = {
+    width: '400px',
+    height: '400px'
+};
 
-    useEffect(() => {
-        if (!window.google) {
-            const script = document.createElement(`script`)
-            script.type = `text/javascript`
-            script.src =
-                `https://maps.google.com/maps/api/js?key=` +
-                process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-            const headScript = document.getElementsByTagName(`script`)[0]
-            headScript.parentNode.insertBefore(script, headScript)
-            script.addEventListener(`load`, onLoad)
-            return () => script.removeEventListener(`load`, onLoad)
-        } else onLoad()
-    })
+const center = {
+    lat: -3.745,
+    lng: -38.523
+};
+
+const Map = ({API_KEY}) => {
+    const [map, setMap] = React.useState(null);
+
+    const onLoad = React.useCallback(function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds();
+        map.fitBounds(bounds);
+        setMap(map);
+    }, []);
+
+    const onUnmount = React.useCallback(function callback(map) {
+        setMap(null);
+    }, []);
 
     return (
-        <
-            div
-            id={uniqueID}
-            {...props}
-            style
-                = {{height: `100vh`, }}
-        />
+        <LoadScript
+            googleMapsApiKey={API_KEY}
+        >
+            <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={10}
+                onLoad={onLoad}
+                onUnmount={onUnmount}
+            >
+                { /* Child components, such as markers, info windows, etc. */ }
+                <></>
+            </GoogleMap>
+        </LoadScript>
     )
 }
+
+export default React.memo(Map)

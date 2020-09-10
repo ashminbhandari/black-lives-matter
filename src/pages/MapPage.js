@@ -7,7 +7,10 @@ const MapPage = () => {
     return (
         <div>
             <div id={'blackMap'}>
-                <Map uniqueID={'blackMap'} mapStyle={BnWMapStyle}/>
+                <Map API_KEY={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}/>
+            </div>
+            <div id={'silverMap'}>
+                <Map API_KEY={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}/>
             </div>
         </div>
     )
